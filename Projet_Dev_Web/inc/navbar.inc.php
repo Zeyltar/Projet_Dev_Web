@@ -10,7 +10,7 @@
         <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">lIeN qUi MaRcHe PaS</a>
+        <a class="nav-link disabled" href="#">Rechercher</a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -19,8 +19,6 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="postAd.php">Poster une annonce</a>
           <a class="dropdown-item" href="editAd.php">Modifier ses annonces</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item disabled" href="#">cHeh</a>
         </div>
       </li>
       <li class="nav-item">
