@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : jeu. 11 juin 2020 à 17:59
+-- Généré le : mar. 16 juin 2020 à 14:19
 -- Version du serveur :  10.4.11-MariaDB
 -- Version de PHP : 7.4.4
 
@@ -28,14 +28,22 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `ads` (
-  `AdID` int(11) NOT NULL,
-  `UserID` int(11) NOT NULL,
-  `Title` varchar(50) NOT NULL,
-  `Price` float(8,2) NOT NULL,
-  `Description` text DEFAULT NULL,
-  `DatePublication` date NOT NULL,
-  `AdStatus` tinyint(1) NOT NULL
+  `adID` int(11) NOT NULL,
+  `userID` int(11) NOT NULL,
+  `title` varchar(50) NOT NULL,
+  `price` float(8,2) NOT NULL,
+  `description` text DEFAULT NULL,
+  `datePublication` date NOT NULL,
+  `adStatus` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `ads`
+--
+
+INSERT INTO `ads` (`adID`, `userID`, `title`, `price`, `description`, `datePublication`, `adStatus`) VALUES
+(2, 1, 'Chameau', 1000.00, 'Chameau pas cher', '2020-06-16', 0),
+(3, 1, 'Chat pas content', 4.99, 'Il a pas l&#039;air gentil.', '2020-06-16', 1);
 
 -- --------------------------------------------------------
 
@@ -56,10 +64,18 @@ CREATE TABLE `discussions` (
 --
 
 CREATE TABLE `images` (
-  `ImageID` int(11) NOT NULL,
-  `AdID` int(11) NOT NULL,
-  `ImagePath` varchar(50) NOT NULL
+  `imageID` int(11) NOT NULL,
+  `adID` int(11) NOT NULL,
+  `imagePath` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `images`
+--
+
+INSERT INTO `images` (`imageID`, `adID`, `imagePath`) VALUES
+(4, 2, '2/image0.jpg'),
+(5, 3, '3/image0.jpg');
 
 -- --------------------------------------------------------
 
@@ -80,13 +96,20 @@ CREATE TABLE `messages` (
 --
 
 CREATE TABLE `users` (
-  `UserID` int(11) NOT NULL,
-  `FirstName` varchar(20) NOT NULL,
-  `LastName` varchar(20) NOT NULL,
-  `Email` varchar(50) NOT NULL,
-  `UserPassword` char(60) NOT NULL,
-  `PdP_Path` varchar(50) NOT NULL
+  `userID` int(11) NOT NULL,
+  `firstName` varchar(20) NOT NULL,
+  `lastName` varchar(20) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `userPassword` char(60) NOT NULL,
+  `picturePath` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `users`
+--
+
+INSERT INTO `users` (`userID`, `firstName`, `lastName`, `email`, `userPassword`, `picturePath`) VALUES
+(1, 'Florian', 'Poinsot', 'florian.poinsot@ynov.com', '$2y$10$.esZHAzyGy9VsWGVT0eHe.JoaANwXXp7iqDOFNHXMn7UTe7VGveSa', '1/profile.jpg');
 
 --
 -- Index pour les tables déchargées
@@ -96,8 +119,8 @@ CREATE TABLE `users` (
 -- Index pour la table `ads`
 --
 ALTER TABLE `ads`
-  ADD PRIMARY KEY (`AdID`),
-  ADD KEY `UserID` (`UserID`);
+  ADD PRIMARY KEY (`adID`),
+  ADD KEY `UserID` (`userID`);
 
 --
 -- Index pour la table `discussions`
@@ -111,8 +134,8 @@ ALTER TABLE `discussions`
 -- Index pour la table `images`
 --
 ALTER TABLE `images`
-  ADD PRIMARY KEY (`ImageID`),
-  ADD KEY `AdID` (`AdID`);
+  ADD PRIMARY KEY (`imageID`),
+  ADD KEY `AdID` (`adID`);
 
 --
 -- Index pour la table `messages`
@@ -125,7 +148,7 @@ ALTER TABLE `messages`
 -- Index pour la table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`UserID`);
+  ADD PRIMARY KEY (`userID`);
 
 --
 -- AUTO_INCREMENT pour les tables déchargées
@@ -135,7 +158,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pour la table `ads`
 --
 ALTER TABLE `ads`
-  MODIFY `AdID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `adID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `discussions`
@@ -147,7 +170,7 @@ ALTER TABLE `discussions`
 -- AUTO_INCREMENT pour la table `images`
 --
 ALTER TABLE `images`
-  MODIFY `ImageID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `imageID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT pour la table `messages`
@@ -159,7 +182,7 @@ ALTER TABLE `messages`
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Contraintes pour les tables déchargées
@@ -169,14 +192,14 @@ ALTER TABLE `users`
 -- Contraintes pour la table `ads`
 --
 ALTER TABLE `ads`
-  ADD CONSTRAINT `ads_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`);
+  ADD CONSTRAINT `ads_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `users` (`userID`);
 
 --
 -- Contraintes pour la table `discussions`
 --
 ALTER TABLE `discussions`
-  ADD CONSTRAINT `discussions_ibfk_1` FOREIGN KEY (`UserID_1`) REFERENCES `users` (`UserID`),
-  ADD CONSTRAINT `discussions_ibfk_2` FOREIGN KEY (`UserID_2`) REFERENCES `users` (`UserID`);
+  ADD CONSTRAINT `discussions_ibfk_1` FOREIGN KEY (`UserID_1`) REFERENCES `users` (`userID`),
+  ADD CONSTRAINT `discussions_ibfk_2` FOREIGN KEY (`UserID_2`) REFERENCES `users` (`userID`);
 
 --
 -- Contraintes pour la table `images`
